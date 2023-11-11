@@ -1,0 +1,62 @@
+name: "Next.js MongoDB Example"
+
+services: db: {
+	image: "ghcr.io/acorn-io/mongodb:v6.#-#"
+	serviceArgs: {
+		username: "appuser"
+		dbName: "todo"
+	}
+}
+
+jobs: {
+	migrate: {
+		build: {
+			context: "."
+			target:  "prisma"
+		}
+		cmd: ["sh", "prisma/migrate.sh"]
+		consumes: ["db"]
+		env: {
+			DB_URL: localData.adminDbUrl
+		}
+	}
+}
+
+containers: {
+	app: {
+		build: context: "."
+
+		consumes: ["db"]
+		dependsOn: "migrate"
+
+		env: {
+			DB_URL: localData.adminDbUrl
+		}
+
+		ports: publish: "3000/http"
+		probes: readiness: {
+			http: {
+				url: "http://localhost:3000"
+			}
+		}
+
+		// Setup hot-reloading if running in development mode
+		if args.dev {
+			build: {
+				target: "prisma"
+			}
+			dirs: {
+				"./prisma":       "./prisma"
+				"./public":       "./public"
+				"./app":          "./app"
+				"./package.json": "./package.json"
+			}
+			cmd: ["npm", "run", "dev"]
+		}
+	}
+}
+
+localData: {
+	adminDbUrl: "mongodb://@{services.db.secrets.admin.username}:@{services.db.secrets.admin.password}@@{services.db.address}:@{service.db.port.27017}/@{service.db.data.dbName}?authSource=admin"
+	dbUrl:      "mongodb://@{services.db.secrets.user.username}:@{services.db.secrets.user.password}@@{services.db.address}:@{service.db.port.27017}/@{service.db.data.dbName}"
+}

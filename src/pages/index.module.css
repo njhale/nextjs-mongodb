@@ -1,0 +1,101 @@
+.container {
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    padding-top: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    margin: 0;
+    line-height: 1.15;
+    font-size: 3rem;
+}
+
+.form {
+    background-color: var(--form-bg);
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--form-border);;
+    border-radius: var(--radius);
+}
+
+.inputName {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.inputContent {
+    width: 100%;
+    height: 75px;
+    resize: none;
+    margin: 0 auto;
+}
+
+.inputName, .inputContent {
+    background: var(--field-bg);
+    border: 1px solid var(--field-border);
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.submit {
+    margin: 5px 0;
+}
+
+.strike {
+    text-decoration: line-through;
+}
+
+.todo {
+    border-radius: var(--radius);
+    margin: 0.5rem 0;
+    width: 100%;
+    display: grid;
+    grid-template-areas: "complete name remove" "content content content";
+    grid-template-columns: 40px auto 50px;
+    grid-template-rows: 40px auto;
+    background-color: var(--todo-bg);
+    border: 1px solid var(--todo-border);
+}
+
+.viewComplete {
+    grid-area: complete;
+    line-height: 40px;
+    text-align: center;
+}
+
+.viewName {
+    grid-area: name;
+    line-height: 40px;
+}
+
+.viewRemove {
+    grid-area: remove;
+    line-height: 40px;
+    text-align: center;
+}
+
+.remove {
+    border: 0;
+    background-color: transparent;
+}
+
+.viewContent {
+    grid-area: content;
+    padding: 0 1rem;
+}
+
+.viewContent P {
+    margin: 0.5rem 0;
+}
