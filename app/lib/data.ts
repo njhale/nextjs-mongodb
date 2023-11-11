@@ -1,4 +1,5 @@
 import { sql } from '@vercel/postgres';
+import { PrismaClient } from '@prisma/client';
 import {
   CustomerField,
   CustomersTable,
@@ -9,6 +10,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+
 
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
@@ -30,6 +32,21 @@ export async function fetchRevenue() {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
   }
+}
+
+const prisma = new PrismaClient()
+
+export async function listTodos() {
+  // Add noStore() here prevent the response from being cached.
+  // This is equivalent to in fetch(..., {cache: 'no-store'}).
+
+  try {
+    return prisma.todo.findMany()
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+  }
+
 }
 
 export async function fetchLatestInvoices() {
