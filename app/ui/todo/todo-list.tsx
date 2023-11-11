@@ -1,5 +1,4 @@
 import { lusitana } from '@/app/ui/fonts';
-import { Todo } from '@prisma/client';
 import { listTodos } from "@/app/lib/data";
 import clsx from "clsx";
 
