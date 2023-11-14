@@ -1,8 +1,7 @@
 name: "Next.js MongoDB Example"
 
 services: db: {
-	//	image: "ghcr.io/acorn-io/mongodb:v6.#-#"
-	image: "ghcr.io/njhale/mongodb:6"
+  image: "ghcr.io/acorn-io/mongodb:v6.#-#"
 	serviceArgs: {
 		username: "appuser"
 		dbName:   "todo"
